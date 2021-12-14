@@ -1,0 +1,18 @@
+my_turtle:
+  background_b: 255
+  background_g: 86
+  background_r: 69
+rosdistro: 'noetic
+
+  '
+roslaunch:
+  uris:
+    host_optimus__43829: http://optimus:43829/
+rosversion: '1.15.13
+
+  '
+run_id: ce1c9070-5cc4-11ec-9862-1329a864abfb
+turtlesim:
+  background_b: 255
+  background_g: 86
+  background_r: 150
