@@ -32,3 +32,8 @@ rospack depends1 rospy
 rospack depends beginner_tutorials
 
 source /opt/ros/%YOUR_ROS_DISTRO%/setup.bash
+
+pour recreer l'environnement pkg sur son ordi 
+il faut suppr les fichiers cmakelists et package.xml du dossier que l'on veut en pkg puis 
+on fait la commande create pkg puis on retourne sur le ws pour faire catkin_make puis on fait 
+la cmd . ~/catkin-ws/devel/setup.bash
