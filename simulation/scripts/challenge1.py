@@ -19,9 +19,12 @@ def move_command_linear(data):
     cmd= Twist()
     cmd.linear.x= 0.5
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
+
+def move_command_angular(data):
+    print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.angular.x= 0.5
+    cmd.angular.z= 0.5
     commandPublisher.publish(cmd) #ma meilleure amie
 
 # Publish velocity commandes:
@@ -34,6 +37,7 @@ def interpret_scan(data):
     angle= data.angle_min #angle minimum 
     #Comment est cosntruit obstacle ?
     for aDistance in data.ranges : # on parcourt le parametre range de data cad le tableau immense de point
+        
         if 0.1 < aDistance and aDistance < 5.0 : # Si la distance est trop petite
             aPoint= [ 
                 math.cos(angle) * aDistance, #on obtient x
@@ -50,7 +54,7 @@ def faire_evoluer_robot(data):
     print("Je suis bloquée dans faire_evoluer robot")
     for a in obstacles :
         if -enveloppe_x < a[0] < enveloppe_x :
-            if -enveloppe_y < a[1] < enveloppe_y:
+            if -enveloppe_y < a[1] < enveloppe_y  and t==0:
                 t=1
                 print("Aie un truc dans l'enveloppe")
     if t == 0 :
@@ -63,16 +67,18 @@ def faire_evoluer_robot(data):
 
 
 #enveloppe
-enveloppe_x = 5.0
-enveloppe_y = 5.0
+enveloppe_x = 0.3
+enveloppe_y = 0.3
 
 # Initialize ROS::node
 rospy.init_node('move', anonymous=True)
 
 # connect to the topic:
+print("interpret_scan")
 rospy.Subscriber('scan', LaserScan, interpret_scan)
 
-# call the move_command at a regular frequency:
+# call the aire_evoluer_robot at a regular frequency:
+print("faire_evoluer_robot")
 rospy.Timer( rospy.Duration(0.1), faire_evoluer_robot, oneshot=False )
 print("Normalement j'apparait")
 #spin() enter the program in a infinite loop
