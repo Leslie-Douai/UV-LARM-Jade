@@ -15,8 +15,11 @@ Voie d'amélioration :
 - Lui donner une stratégie d'évitement des obstacles qui quadrillerait plus la zone
 
 Rappel des commandes de test :
+
 _Simulation_
+
 roslaunch grp-color challendge1_simulation.launch
 
 _Démonstration_
+
 roslaunch grp-color challendge1_turtlebot.launch
