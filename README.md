@@ -18,8 +18,8 @@ Rappel des commandes de test :
 
 _Simulation_
 
-roslaunch grp-color challendge1.launch
+roslaunch grp-color challenge1.launch
 
 _Démonstration_
 
-roslaunch grp-color challendge1.launch
+roslaunch grp-color challenge1.launch
