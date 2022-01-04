@@ -29,6 +29,7 @@ sudo apt install python3-rosdep
 
 sudo rosdep init
 rosdep update
+---------
 
 printenv | grep ROS
 source /opt/ros/noetic/setup.bash
