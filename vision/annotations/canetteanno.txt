@@ -1,0 +1,57 @@
+./data/canette/20220104_160357.jpg 0
+./data/canette/20220104_160358.jpg 0
+./data/canette/20220104_160359.jpg 0
+./data/canette/20220104_160640.jpg 1 52 158 144 347
+./data/canette/20220104_160658.jpg 1 252 8 466 580
+./data/canette/20220104_160701.jpg 1 115 234 35 80
+./data/canette/20220104_160710.jpg 0
+./data/canette/20220104_160712.jpg 0
+./data/canette/20220104_160715.jpg 1 168 534 75 64
+./data/canette/20220104_160716.jpg 0
+./data/canette/20220104_160717.jpg 0
+./data/canette/20220104_160722.jpg 0
+./data/canette/20220104_160724.jpg 0
+./data/canette/20220104_160726.jpg 0
+./data/canette/20220104_160729.jpg 1 12 258 47 47
+./data/canette/20220104_160739.jpg 0
+./data/canette/20220104_160740.jpg 0
+./data/canette/20220104_160751.jpg 0
+./data/canette/20220104_160753.jpg 0
+./data/canette/20220104_160806.jpg 0
+./data/canette/20220104_160807.jpg 0
+./data/canette/20220104_160812.jpg 0
+./data/canette/20220104_160818.jpg 0
+./data/canette/20220104_160820.jpg 0
+./data/canette/20220104_160821.jpg 0
+./data/canette/20220104_160842.jpg 0
+./data/canette/20220104_160844.jpg 0
+./data/canette/20220104_160850.jpg 0
+./data/canette/20220104_160855.jpg 0
+./data/canette/20220104_160900.jpg 0
+./data/canette/20220104_160906.jpg 0
+./data/canette/IMG_4118.jpg 1 163 205 112 155
+./data/canette/IMG_4119.jpg 1 131 142 136 261
+./data/canette/IMG_4120.jpg 1 66 194 186 263
+./data/canette/IMG_4121.jpg 1 123 194 182 278
+./data/canette/IMG_4122.jpg 1 136 243 144 238
+./data/canette/IMG_4123.jpg 1 110 309 187 166
+./data/canette/IMG_4124.jpg 1 111 339 120 118
+./data/canette/IMG_4125.jpg 1 154 306 182 181
+./data/canette/IMG_4126.jpg 1 409 94 217 402
+./data/canette/IMG_4127.jpg 1 265 175 342 290
+./data/canette/IMG_4128.jpg 1 190 242 396 248
+./data/canette/IMG_4129.jpg 1 90 156 155 302
+./data/canette/IMG_4130.jpg 1 56 182 161 324
+./data/canette/IMG_4131.jpg 1 113 190 154 296
+./data/canette/IMG_4132.jpg 1 150 214 147 294
+./data/canette/IMG_4134.jpg 0
+./data/canette/IMG_4135.jpg 0
+./data/canette/IMG_4136.jpg 0
+./data/canette/IMG_4137.jpg 0
+./data/canette/IMG_4138.jpg 0
+./data/canette/IMG_4139.jpg 0
+./data/canette/IMG_4140.jpg 0
+./data/canette/IMG_4141.jpg 0
+./data/canette/IMG_4142.jpg 0
+./data/canette/IMG_4143.jpg 0
+./data/canette/IMG_4144.jpg 0
