@@ -130,11 +130,174 @@ cat package.xml
 rospack depends1 rospy
 rospack depends beginner_tutorials
 
+----
+Building a ROS Package
+----
+#catkin_make is a command line tool which adds some convenience to the standard catkin workflow. You can imagine that 
+#catkin_make combines the calls to cmake and make in the standard CMake workflow. 
+catkin_make [make_targets] [-DCMAKE_VARIABLES=...]
+
+# In a catkin workspace
+catkin_make
+catkin_make install  # (optionally)
+
+#The above commands will build any catkin projects found in the src folder. This follows the
+#recommendations set by REP128.
+#if your source code is in a different place, say my_src then you would call catkin_make like this:
+
+catkin_make --source my_src
+catkin_make install --source my_src  # (optionally)
+
+----
+ROS Nodes 
+----
+
+#A node really isn't much more than an executable file within a ROS package. ROS nodes use a ROS client library 
+#to communicate with other nodes. Nodes can publish or subscribe to a Topic. Nodes can also provide or use a Service. 
+
+#rospy = python client library
+#roscpp = c++ client library 
+
+#Première chose à run
+roscore
+
+#Affiche les nodes active
+rosnode list
+
+#rosnode info command returns information about a specific node
+rosnode info [La node]
+
+#rosrun allows you to use the package name to directly run a node within a package 
+#(without having to know the package path).
+
+rosrun [package_name] [node_name]
+
+#Remapping Argument to change the node's name
+
+rosnode ping my_turtle
+
+---
+Ros topic
+---
+#rqt_graph creates a dynamic graph of what's going on in the system. rqt_graph is part of the rqt package
+
+sudo apt-get install ros-<distro>-rqt
+sudo apt-get install ros-<distro>-rqt-common-plugins
+
+The rostopic tool allows you to get information about ROS topics
+rostopic bw     display bandwidth used by topic
+rostopic echo   print messages to screen
+rostopic hz     display publishing rate of topic    
+rostopic list   print information about active topics
+rostopic pub    publish data to topic : rostopic pub [topic] [msg_type] [args]
+rostopic type   print topic type
+
+Rappel : on peut faire rostopic argument -h pour savoir quel arguments donner
+
+rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]'
+Explication :
+This command will publish messages to a given topic:
+
+rostopic pub
+
+This option (dash-one) causes rostopic to only publish one message then exit:
+
+ -1 
+
+This is the name of the topic to publish to:
+
+/turtle1/cmd_vel
+
+This is the message type to use when publishing to the topic:
+
+geometry_msgs/Twist
+
+This option (double-dash) tells the option parser that none of the following arguments is an option. This is required in cases where your arguments have a leading dash -, like negative numbers.
+
+--
+
+As noted before, a geometry_msgs/Twist msg has two vectors of three floating point elements each: linear and angular. In this case, '[2.0, 0.0, 0.0]' becomes the linear value with x=2.0, y=0.0, and z=0.0, and '[0.0, 0.0, 1.8]' is the angular value with x=0.0, y=0.0, and z=1.8. These arguments are actually in YAML syntax, which is described more in the YAML command line documentation.
+
+'[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]' 
+
+You may have noticed that the turtle has stopped moving; this is because the turtle requires a steady stream of commands at 1 Hz to keep moving. We can publish a steady stream of commands using rostopic pub -r command:
+
+rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'
+
+#rqt_plot displays a scrolling time plot of the data published on topics. Here we'll use rqt_plot 
+#to plot the data being published on the /turtle1/pose topic. First, start rqt_plot by typing
+rosrun rqt_plot rqt_plot
+
+#dd any topic to the plot. Typing /turtle1/pose/x will highlight the plus button, previously disabled
+
+----
+Understanding ROS Services and Parameters
+----
+
+#rosservice can easily attach to ROS's client/service framework with services. rosservice has many commands 
+#that can be used on services ( rosservice list)
+
+rosservice list         print information about active services
+rosservice call         call the service with the provided args : rosservice call [service] [args]
+rosservice type         print service type
+rosservice find         find services by service type
+rosservice uri          print service ROSRPC uri
+
+rosparam allows you to store and manipulate data on the ROS Parameter Server. The Parameter Server can store 
+integers, floats, boolean, dictionaries, and lists. rosparam uses the YAML markup language for syntax. In 
+simple cases, YAML looks very natural: 1 is an integer, 1.0 is a float, one is a string, true is a boolean, 
+[1, 2, 3] is a list of integers, and {a: b, c: d} is a dictionary. rosparam has many commands that can be used 
+on parameters, as shown below
+
+rosparam set            set parameter
+rosparam get            get parameter
+rosparam load           load parameters from file
+rosparam dump           dump parameters to file
+rosparam delete         delete parameter
+rosparam list           list parameter names
+
+---
+ROSLAUNCH
+---
+roslaunch starts nodes as defined in a launch file. 
+roslaunch [package] [filename.launch]
+
+rappel mkdir créé un fichier
+
+Text type 
+ <launch>
+
+   <group ns="turtlesim1">
+   <node pkg="turtlesim" name="sim" type="turtlesim_node"/>
+   </group>
+
+   <group ns="turtlesim2">
+      <node pkg="turtlesim" name="sim" type="turtlesim_node"/>
+   </group>
+
+   <node pkg="turtlesim" name="mimic" type="mimic">
+    <remap from="input" to="turtlesim1/turtle1"/>
+    <remap from="output" to="turtlesim2/turtle1"/>
+   </node>
+   
+</launch>
+
+----
+Rosed edit files in ROS
+----
+
+#rosed is part of the rosbash suite. It allows you to directly edit a file within a package by using the 
+#package name rather than having to type the entire path to the package. 
+rosed [package_name] [filename]
+
+
+
 ---
 La commande à faire h24
 ---
 
 source /opt/ros/%YOUR_ROS_DISTRO%/setup.bash
+source ~/catkin/devel/setup.bash
 
 ----
 Remarque pour le github
