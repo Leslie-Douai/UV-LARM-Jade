@@ -1,3 +1,6 @@
 compiler opencv
 recup ligne de commande pour avoir create sample
 trouver ligne de commande supprimer opencv puis le recompiler pour avoir create sample
+nettoyer les repo des challenges
+ameliorer le programme du robot en simulation
+mettre la simul et le tbot sur le meme launch file 
