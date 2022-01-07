@@ -1,0 +1,14 @@
+<launch>
+
+<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+
+<node pkg="simulation" name="SLAM" type="SLAM.py"/>
+<node pkg="rviz" name="rviz" type="rviz" args="$(find simulation)/rvizconfiglaser.rviz"/>
+
+<node pkg="urg_node" name="urg_node" type="urg_node">
+    <param name="angle_min" value="-1.35"/>
+    <param name="angle_max" value="1.35"/>
+ </node>
+
+</launch>
+
