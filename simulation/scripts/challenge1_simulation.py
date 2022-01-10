@@ -3,6 +3,7 @@ import math, rospy, math
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 import time
+from random import randint
 print("Normalement j'apparait en premier et à chaque spin")
 commandPublisher = rospy.Publisher(
     '/cmd_vel_mux/input/navi',
@@ -17,14 +18,14 @@ def move_command_linear(data):
     print("move_command_linear(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.linear.x= 0.1
+    cmd.linear.x= 0.7
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
 
 def move_command_angular(data):
     print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.angular.z= 0.4
+    cmd.angular.z= -2
     commandPublisher.publish(cmd) #ma meilleure amie
 
 # Publish velocity commandes:
@@ -67,8 +68,8 @@ def faire_evoluer_robot(data):
 
 
 #enveloppe
-enveloppe_x = 0.2
-enveloppe_y = 0.1
+enveloppe_x = 0.5
+enveloppe_y = 0.5
 
 # Initialize ROS::node
 rospy.init_node('move', anonymous=True)
