@@ -8,3 +8,5 @@ mettre la simul et le tbot sur le meme launch file
 
 pour le mapping
 roslaunch simulation gmapping_demo.launch 
+https://www.youtube.com/watch?v=MFqn9i68bfM
+http://docs.ros.org/en/melodic/api/nav_msgs/html/msg/OccupancyGrid.html
