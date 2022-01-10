@@ -1,0 +1,8 @@
+<launch>
+
+    <include file="$(find larm)/launch/challenge-2.launch"/>
+
+    <!-- <node pkg="simulation" name="challenge1test" type="challenge1_simulation.py" args="$(find simulation)/scripts/challenge1_simulation.py"/>  -->
+
+    <node pkg="rviz" name="rviz" type="rviz" args="$(find simulation)/include/rvizconfiglaser.rviz"/>  
+</launch>
