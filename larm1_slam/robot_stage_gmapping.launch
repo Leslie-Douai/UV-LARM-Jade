@@ -1,0 +1,13 @@
+<launch>
+
+    <include file="$(find larm)/launch/challenge-2.launch"/>
+    <include file="$(find my_teleop)/my_keyboard_teleop.launch"/>
+    
+    <param name="/use_sim_time" value="true" />
+
+    <!-- <node pkg="simulation" name="challenge1test" type="challenge1_simulation.py" args="$(find simulation)/scripts/challenge1_simulation.py"/>  -->
+
+    <node pkg="rviz" name="rviz" type="rviz" args="-d $(find simulation)/include/rvizconfiglaser_simul.rviz"/>
+
+    
+</launch>
