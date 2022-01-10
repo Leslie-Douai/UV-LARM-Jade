@@ -4,3 +4,7 @@ trouver ligne de commande supprimer opencv puis le recompiler pour avoir create 
 nettoyer les repo des challenges
 ameliorer le programme du robot en simulation
 mettre la simul et le tbot sur le meme launch file 
+
+
+pour le mapping
+roslaunch simulation gmapping_demo.launch 
