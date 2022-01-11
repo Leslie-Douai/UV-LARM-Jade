@@ -1,13 +1,13 @@
 <launch>
-
+<arg name="scan_topic"  default="scan" />
     <include file="$(find larm)/launch/challenge-2.launch"/>
     <include file="$(find turtlebot_teleop)/launch/keyboard_teleop.launch"/>
-    <include file="$(find simulation)/launch/gmapping_demo.launch"/>
-    
+
     <param name="/use_sim_time" value="true" />
-    <!--<node pkg="gmapping" type="slam_gmapping" name="gmapping_node" args="scan:=base_scan">
+    <node name="gmapping" pkg="gmapping" type="slam_gmapping">
+    	<remap from="scan" to="$(arg scan_topic)"/>
     	<param name="maxUrange" value="4.0"/>
-    </node>-->
+    </node>
 
     <!--<node pkg="simulation" name="challenge1test" type="challenge1_simulation.py" args="$(find simulation)/scripts/challenge1_simulation.py"/> -->
 
