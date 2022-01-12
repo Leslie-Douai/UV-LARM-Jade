@@ -1,15 +1,13 @@
-compiler opencv
-recup ligne de commande pour avoir create sample
-trouver ligne de commande supprimer opencv puis le recompiler pour avoir create sample
-nettoyer les repo des challenges
 ameliorer le programme du robot en simulation
 mettre la simul et le tbot sur le meme launch file 
 
+a faire fin de semaine 
+gmapping real tbot
 
-pour le mapping
-roslaunch simulation gmapping_demo.launch 
-https://www.youtube.com/watch?v=MFqn9i68bfM
-http://docs.ros.org/en/melodic/api/nav_msgs/html/msg/OccupancyGrid.html
+finir vision pour reco canette
 
-faire mercredi 
-recup opencv et mb6tbot
+faire les marqueurs des canettes 
+
+faire attention probleme challenge-2.bag sur le dossier qui a changé
+
+

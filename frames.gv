@@ -1,7 +1,11 @@
 digraph G {
-"map" -> "odom"[label="Broadcaster: /gmapping\nAverage rate: 21.229 Hz\nMost recent transform: 132.346 ( -0.030 sec old)\nBuffer length: 1.696 sec\n"];
-edge [style=invis];
- subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 132.316"[ shape=plaintext ] ;
- }->"map";
+"base_link" -> "camera_link"[label="Broadcaster: /player\nAverage rate: 12.821 Hz\nMost recent transform: 1641890294.076 \nBuffer length: 2.964 sec\n"];
+"base_footprint" -> "base_link"[label="Broadcaster: /player\nAverage rate: 12.829 Hz\nMost recent transform: 1641890294.073 \nBuffer length: 2.884 sec\n"];
+"odom" -> "base_footprint"[label="Broadcaster: /player\nAverage rate: 50.441 Hz\nMost recent transform: 1641890294.028 \nBuffer length: 2.994 sec\n"];
+"base_link" -> "laser_link"[label="Broadcaster: /player\nAverage rate: 12.821 Hz\nMost recent transform: 1641890294.105 \nBuffer length: 2.964 sec\n"];
+"camera_link" -> "camera_depth_frame"[label="Broadcaster: /player\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 \nBuffer length: 0.000 sec\n"];
+"camera_depth_frame" -> "camera_depth_optical_frame"[label="Broadcaster: /player\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 \nBuffer length: 0.000 sec\n"];
+"camera_link" -> "camera_color_frame"[label="Broadcaster: /player\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 \nBuffer length: 0.000 sec\n"];
+"camera_aligned_depth_to_color_frame" -> "camera_color_optical_frame"[label="Broadcaster: /player\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 \nBuffer length: 0.000 sec\n"];
+"camera_link" -> "camera_aligned_depth_to_color_frame"[label="Broadcaster: /player\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 \nBuffer length: 0.000 sec\n"];
 }
