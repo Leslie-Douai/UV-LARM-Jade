@@ -56,28 +56,11 @@ def enveloppe(x,y):
     enveloppe_x = x
     enveloppe_y = y
 
-def record_scan(data):
+def start_record_scan(data):
     commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
    
-
-    global obstacles
-    rospy.loginfo('I get scans')
-    obstacles= []
-    angle= data.angle_min #angle minimum 
-    #Comment est cosntruit obstacle ?
-    for aDistance in data.ranges : # on parcourt le parametre range de data cad le tableau immense de point
-        
-        if 0.1 < aDistance and aDistance < 5.0 : # Si la distance est trop petite
-            aPoint= [ 
-                math.cos(angle) * aDistance, #on obtient x
-                math.sin( angle ) * aDistance #on obtient y
-            ]
-            obstacles.append( aPoint ) #on ajoute
-        angle+= data.angle_increment #on passe à langle suivant
-    rospy.loginfo( str(
-        [ [ round(p[0], 2), round(p[1], 2) ] for p in  obstacles[0:10] ] 
-    ) + " ..." )
-
+def end_record_scan(data):
+    commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
 
 
 def record(data):
