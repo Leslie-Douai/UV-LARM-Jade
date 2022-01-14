@@ -51,5 +51,20 @@ def faire_evoluer_robot(data):
         move_command_linear(data)
     else:
         move_command_angular(data)
+
+def enveloppe(x,y):
+    enveloppe_x = x
+    enveloppe_y = y
+
+def start_record_scan(data):
+    commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
+   
+def end_record_scan(data):
+    commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
+
+
+def record(data):
+
+
         
 
