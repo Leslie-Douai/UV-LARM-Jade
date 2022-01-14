@@ -10,11 +10,13 @@ https://bitbucket.org/imt-mobisyst/mb6-tbot.git
 
 _Simulation_
 
-roslaunch grp-color challenge2_sim.launch
+roslaunch grp-color challenge2.launch
 
 _Démonstration_
 
 roslaunch grp-color challenge2_dem.launch
+echo the bottle topic
+Start rviz to visualize the map (if it is not automaticaly started)
 
 Objectif :
 Criteria
