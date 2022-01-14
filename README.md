@@ -8,8 +8,7 @@ https://bitbucket.org/imt-mobisyst/mb6-tbot.git
 
 _Lancement_
 
-roslaunch grp-color challenge2_dem.launch
-
+roslaunch grp-jade challenge2.launch
 echo the bottle topic
 
 Start rviz to visualize the map (if it is not automaticaly started)
