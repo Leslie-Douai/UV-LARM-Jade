@@ -10,13 +10,8 @@ project(grp-jade-challenge2)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-<<<<<<< HEAD
-  std_msgs
-  sensor_msgs
-=======
   sensor_msgs
   std_msgs
->>>>>>> c58d1886be4bd3e90b8a95f1d5f9199534620d9a
 )
 
 ## System dependencies are found with CMake's conventions
@@ -76,11 +71,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-<<<<<<< HEAD
-#   std_msgs
-=======
 #   sensor_msgs#   std_msgs
->>>>>>> c58d1886be4bd3e90b8a95f1d5f9199534620d9a
 # )
 
 ################################################
@@ -115,11 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES grp-jade-challenge2
-<<<<<<< HEAD
-#  CATKIN_DEPENDS roscpp rospy std_msgs
-=======
 #  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs
->>>>>>> c58d1886be4bd3e90b8a95f1d5f9199534620d9a
 #  DEPENDS system_lib
 )
 
@@ -205,6 +192,7 @@ include_directories(
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
+
 catkin_install_python(PROGRAMS
    scripts/challenge2_1.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -222,12 +210,5 @@ catkin_install_python(PROGRAMS
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-<<<<<<< HEAD
 
- catkin_install_python(PROGRAMS
-   scripts/challenge2_1.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
 
-=======
->>>>>>> c58d1886be4bd3e90b8a95f1d5f9199534620d9a
