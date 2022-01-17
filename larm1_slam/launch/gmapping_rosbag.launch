@@ -9,6 +9,7 @@
 
 
     <node pkg="rosbag" type="play" name="player" args="--clock $(find larm1_slam)/challenge-2.bag" output="screen"/>
+    <!--<node pkg="larm1_slam" type="challenge2_1.py" name="challenge2_1" args="$(find larm1_slam)/scripts/challenge2_1.py" />-->
 
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find simulation)/include/rvizconfiglaser_rosbag.rviz"/>
       

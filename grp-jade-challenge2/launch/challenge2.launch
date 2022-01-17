@@ -1,0 +1,27 @@
+<!-- Lande Rviz Lance de quoi mapper lance reconnaissance bouteille lance detection lance placement bouteille -->
+<!-- ATTENTION mettre les fichiers utilisés sur la branche  -->
+
+<launch>
+<!-- ATTENTION mettre les fichiers utilisés sur la branche -->
+<!-- lance simulation sur chrono initialiser 0 -->
+    <param name="/use_sim_time" value="true" />
+
+<!-- fait marcher le scan -->
+    <arg name="scan_topic"  default="scan" />
+
+<!-- gmapping -->    
+    <node name="gmapping" pkg="gmapping" type="slam_gmapping">
+    	<remap from="scan" to="$(arg scan_topic)"/>
+    	<param name="maxUrange" value="4.0"/>
+    </node>
+
+<!-- Vision un python qui tourne avec une intelligence déja entrainée .xml qu'on log dans le load cascade-->
+    <node pkg="grp-jade-challenge2" name = "reconnaissance" args="$(find grp-jade-challenge2)/scripts/challenge2_1.py">
+
+
+<!-- Rosbag du prof qui fait 12Go-->
+    <node pkg="rosbag" type="play" name="player" args="--clock $(find grp-jade-challenge2)/challenge-2.bag" output="screen"/> 
+<!-- Lance rviz -->
+    <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade-challenge2)/rviz/rvizconfiglaser_rosbag.rviz"/> 
+      
+</launch>
