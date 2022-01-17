@@ -28,10 +28,10 @@ class BottleDetection():
 		frame_gray = cv.equalizeHist(frame_gray)
 		color_info = (255, 255, 255)
 
-		bottles = self.cascadeclean.detectMultiScale(frame_gray, minNeighbors=30, scaleFactor=3)
+		bottles = self.cascade.detectMultiScale(frame_gray, minNeighbors=30, scaleFactor=3)
 		for (x, y, w, h) in bottles:
 			center=(x+(w/2),y+(h/2))
-			frame=cv.ellipse(frame,center,(w/2,h/2),0,0,360,(255,0,255),4)
+			frame=cv.ellipse(frame,center,(w/2,h/2),(255,0,255),4)
 			faceROI=frame[y:y+h,x:x+w]
 			median = numpy.median(faceROI)
 
@@ -39,12 +39,9 @@ class BottleDetection():
 				cv.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
 				estimated_pose = self.Pose(x,y, w, h)
 				self.position_marqueur(estimated_pose)
-		
-		elements = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)[-2]
-
-		estimated_pose = self.Pose(x,y, w, h)
-		self.position_marqueur(estimated_pose)
-		cv.imshow('Capture - Face detection', frame)
+				cv.imshow('Capture - Face detection', frame)
+				if cv.waitKey(10) == 27:
+        				break
 
 	def Pose(self, x, y, w, h):
 		distance = 2000
@@ -69,7 +66,7 @@ class BottleDetection():
 		bridge = CvBridge()
 		try:
 			cv_image = bridge.imgmsg_to_cv2(data, "bgr8")
-			self.detectAndDisplay(cv_image)
+			#self.detectAndDisplay(cv_image)
 		except Exception as err:
 			pass
 
@@ -117,9 +114,8 @@ def odom(data: Odometry):
 
 rospy.init_node('Bottle_Detection', anonymous=True)
 node = BottleDetection()
-rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
+rospy.Subscriber("camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
 rospy.Subscriber("camera/color/image_raw",Image, color_image_raw_cb)
 rospy.Subscriber("/odom", Odometry, odom)
-
 rospy.spin()
 
