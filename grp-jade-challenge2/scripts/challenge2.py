@@ -3,29 +3,31 @@ from __future__ import print_function
 from os import posix_fadvise
 import cv2 as cv
 import argparse
+from sensor_msgs.msg import Image
+from nav_msgs.msg import Odometry
 import numpy
 import math
 import rospy, rospkg
 import tf
-from visualization_msgs.msg import Marker, MarkerArray
-from geometry_msgs.msg import Pose, PoseStamped
-from sensor_msgs.msg import Image
-from nav_msgs.msg import Odometry
 from cv_bridge import CvBridge, CvBridgeError
+from visualization_msgs.msg import marker, markerArray
+from geometry_msgs.msg import Pose, PoseStamped
 
+def get_pkg_path():
+    rospack = rospkg.RosPack()
+    return rospack.get_path('grp-jade-challenge2')
 
-
-class BottleDetection():
+class Black_Bottle():
 	def __init__(self):
-		
-		self.cascade = cv.CascadeClassifier("/mnt/Secondaire/catkin-ws/src/UV-LARM-Jade/vision/modele/cascade.xml")
+		self.cascade = cv.CascadeClassifier(get_pkg_path() + "/scripts/cascade.xml")
 		self.tfListener = tf.TransformListener()
-		self.markerPublisher = rospy.Publisher('/bottle',Marker, queue_size=10)
-		self.camera_width = 1920.0
-		self.camera_height = 1080.0
-		self.hfov = 64
+		self.Publisher = rospy.Publisher('/bottle',marker, queue_size=10)
+		self.Map = rospy.Publisher('/map',marker, queue_size=10)
+		self.vision_horizontale = 64
+		self.camera_width = 1920
+		self.camera_height = 1080
 
-	def detectAndDisplay(self, frame):
+	def DetectAndDisplay(self, frame):
 		frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 		frame_gray = cv.equalizeHist(frame_gray)	
 		color_info = (255, 255, 255)		
@@ -34,74 +36,67 @@ class BottleDetection():
 	
 		self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
 		print(self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3))
-		'''for (x, y, w, h) in bottles:
+		for (x,y,w,h) in bottles:
 			center=(x+(w/2),y+(h/2))
 			frame=cv.ellipse(frame,center,(w/2,h/2),(255,0,255),4)
 			estimated_pose = self.Pose(x,y, w, h)
-			self.position_marqueur(estimated_pose)'''
+			self.position_marker(estimated_pose)
 	
-		
-
 	def Pose(self, x, y, w, h):
-		distance = 2000
+		distance = 4000
 		for row in self.depth_array[y:y+h, x:x+w]:
 			for pixel in row:
 				if pixel < distance and pixel != 0:
 					distance = pixel  
-		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.hfov/2) * math.pi / 180
+		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.vision_horizontale/2) * math.pi / 180
 		estimated_pose = Pose()
 		estimated_pose.position.x = distance / 1000 * math.cos(angle) 
 		estimated_pose.position.y = distance / 1000 * math.sin(angle)  
-		return estimated_pose
+	return estimated_pose
 
 
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
 
-	def callback_depth(self, data: Image):
+	def Callback_depth(self, data: Image):
 		m=1
 
-	def callback_image(self, data: Image):
+	def Callback_image(self, data: Image):
 		bridge = CvBridge()
 		try:
-			cv_image = bridge.imgmsg_to_cv2(data, "bgr8")
-			self.detectAndDisplay(cv_image)
+			cv_image = np.array(bridge.imgmsg_to_cv2(data, "bgr8"))
+			self.DetectAndDisplay(cv_image)
 		except Exception as err:
 			print("Erreur ", err)
 
-	"""def position_marqueur(self, pose: Pose):
-		if len(self.markers_list) == 0:
-			pose_marqueur = self.Creation_marqueur(pose)
-			self.markerPublisher.publish(pose_marqueur)
-			self.markers_list.append(pose_marqueur)"""
-
-	def Creation_marqueur(self, pose: Pose):
-		pose_stamped = PoseStamped ()
-		pose_stamped.pose = pose
-		pose_stamped.header.frame_id = "map"
-		pose_stamped = self.tfListener.transformPose("map", pose_stamped)
-		marker = Marker()
-		marker.type = Marker.CUBE
-		marker.action = Marker.ADD
-		marker.pose = pose_stamped.pose
+	def Creation_marker(self, pose: Pose):
+		stamped = PoseStamped()
+		stamped.pose = pose
+		stamped.header.frame_id = "/map"
+		stamped = self.tfListener.transformPose("/map", stamped)
+		marker = marker()
+		marker.type = marker.CUBE
+		marker.action = marker.ADD
+		marker.pose = stamped.pose
 		marker.scale.x = 0.5
 		marker.scale.y = 0.5
-		marker.scale.z = 0.5
-
-		marker.color.r = 0.0
+		marker.color.r = 1.0
 		marker.color.g = 0.0
 		marker.color.b = 1.0
 		marker.color.a = 1.0
+		stamped = PoseStamped_create(marker.scale.x,marker.scale.y)
+		Publisher.publish(stamped)
+		Map.publish(stamped)
 
 
 
 def depth_to_color_image_raw_cb(data: Image):
 	global node
-	node.callback_depth(data)
+	node.Callback_depth(data)
 
 def color_image_raw_cb(data: Image):
 	global node
-	node.callback_image(data)
+	node.Callback_image(data)
 	
 def odom(data: Odometry):
 	global node 
@@ -109,8 +104,8 @@ def odom(data: Odometry):
 
 
 
-rospy.init_node('Bottle_Detection', anonymous=True)
-node = BottleDetection()
+rospy.init_node('Black_Bottle', anonymous=True)
+node = Black_Bottle()
 rospy.Subscriber("camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
 rospy.Subscriber("camera/color/image_raw",Image, color_image_raw_cb)
 rospy.Subscriber("/odom", Odometry, odom)
