@@ -6,7 +6,7 @@ import rospkg
 
 def get_pkg_path():
     rospack = rospkg.RosPack()
-    return rospack.get_path('grp-jade-challenge2')
+    return rospack.get_path('grp-jade')
 
 def detectAndDisplay(frame):
     frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)

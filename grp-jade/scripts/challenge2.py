@@ -10,19 +10,19 @@ import math
 import rospy, rospkg
 import tf
 from cv_bridge import CvBridge, CvBridgeError
-from visualization_msgs.msg import marker, markerArray
+from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Pose, PoseStamped
 
 def get_pkg_path():
     rospack = rospkg.RosPack()
-    return rospack.get_path('grp-jade-challenge2')
+    return rospack.get_path('grp-jade')
 
 class Black_Bottle():
 	def __init__(self):
 		self.cascade = cv.CascadeClassifier(get_pkg_path() + "/scripts/cascade.xml")
 		self.tfListener = tf.TransformListener()
-		self.Publisher = rospy.Publisher('/bottle',marker, queue_size=10)
-		self.Map = rospy.Publisher('/map',marker, queue_size=10)
+		self.Publisher = rospy.Publisher('/bottle',Marker, queue_size=10)
+		self.Map = rospy.Publisher('/map',Marker, queue_size=10)
 		self.vision_horizontale = 64
 		self.camera_width = 1920
 		self.camera_height = 1080
@@ -39,21 +39,8 @@ class Black_Bottle():
 		for (x,y,w,h) in bottles:
 			center=(x+(w/2),y+(h/2))
 			frame=cv.ellipse(frame,center,(w/2,h/2),(255,0,255),4)
-			estimated_pose = self.Pose(x,y, w, h)
-			self.position_marker(estimated_pose)
-	
-	def Pose(self, x, y, w, h):
-		distance = 4000
-		for row in self.depth_array[y:y+h, x:x+w]:
-			for pixel in row:
-				if pixel < distance and pixel != 0:
-					distance = pixel  
-		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.vision_horizontale/2) * math.pi / 180
-		estimated_pose = Pose()
-		estimated_pose.position.x = distance / 1000 * math.cos(angle) 
-		estimated_pose.position.y = distance / 1000 * math.sin(angle)  
-	return estimated_pose
-
+			estimation = self.Pose(x,y, w, h)
+			self.position_marker(estimation)
 
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
@@ -68,23 +55,35 @@ class Black_Bottle():
 			self.DetectAndDisplay(cv_image)
 		except Exception as err:
 			print("Erreur ", err)
+	
+	def Pose(self,x,y,w,h):
+		distance = 4000
+		for row in self.depth_array[y:y+h, x:x+w]:
+			for pixel in row:
+				if pixel < distance and pixel != 0:
+					distance = pixel  
+		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.vision_horizontale/2) * math.pi / 180
+		estimation = Pose()
+		estimation.position.x = distance / 1000 * math.cos(angle) 
+		estimation.position.y = distance / 1000 * math.sin(angle)  
+		return estimation
 
-	def Creation_marker(self, pose: Pose):
+	def Creation_marqueur(self, pose: Pose):
 		stamped = PoseStamped()
 		stamped.pose = pose
 		stamped.header.frame_id = "/map"
 		stamped = self.tfListener.transformPose("/map", stamped)
-		marker = marker()
-		marker.type = marker.CUBE
-		marker.action = marker.ADD
-		marker.pose = stamped.pose
-		marker.scale.x = 0.5
-		marker.scale.y = 0.5
-		marker.color.r = 1.0
-		marker.color.g = 0.0
-		marker.color.b = 1.0
-		marker.color.a = 1.0
-		stamped = PoseStamped_create(marker.scale.x,marker.scale.y)
+		marqueur = Marker()
+		marqueur.type = Marker.CUBE
+		marqueur.action = Marker.ADD
+		marqueur.pose = stamped.pose
+		marqueur.scale.x = 0.5
+		marqueur.scale.y = 0.5
+		marqueur.color.r = 1.0
+		marqueur.color.g = 0.0
+		marqueur.color.b = 1.0
+		marqueur.color.a = 1.0
+		stamped = PoseStamped_create(marqueur.scale.x,marqueur.scale.y)
 		Publisher.publish(stamped)
 		Map.publish(stamped)
 
