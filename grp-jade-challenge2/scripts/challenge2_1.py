@@ -17,9 +17,10 @@ from cv_bridge import CvBridge, CvBridgeError
 
 class BottleDetection():
 	def __init__(self):
-		self.cascade = cv.CascadeClassifier("grp-jade-challenge2/scripts/cascade.xml")
+		
+		self.cascade = cv.CascadeClassifier("/mnt/Secondaire/catkin-ws/src/UV-LARM-Jade/vision/modele/cascade.xml")
 		self.tfListener = tf.TransformListener()
-		self.markerPublisher = rospy.Publisher('/bottle',Marker)
+		self.markerPublisher = rospy.Publisher('/bottle',Marker, queue_size=10)
 		self.markers_list = list()
 
 	def detectAndDisplay(self, frame):
@@ -27,10 +28,12 @@ class BottleDetection():
 		frame_gray = cv.equalizeHist(frame_gray)
 		color_info = (255, 255, 255)
 
-		bottles = self.cascade.detectMultiScale(frame_gray, minNeighbors=30, scaleFactor=3)
+		bottles = self.cascadeclean.detectMultiScale(frame_gray, minNeighbors=30, scaleFactor=3)
 		for (x, y, w, h) in bottles:
-			crop_frame = frame[y:y+h, x:x+w]
-			median = numpy.median(crop_frame)
+			center=(x+(w/2),y+(h/2))
+			frame=cv.ellipse(frame,center,(w/2,h/2),0,0,360,(255,0,255),4)
+			faceROI=frame[y:y+h,x:x+w]
+			median = numpy.median(faceROI)
 
 			if median > 170 and y > frame.shape[0] / 3:
 				cv.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
@@ -41,6 +44,7 @@ class BottleDetection():
 
 		estimated_pose = self.Pose(x,y, w, h)
 		self.position_marqueur(estimated_pose)
+		cv.imshow('Capture - Face detection', frame)
 
 	def Pose(self, x, y, w, h):
 		distance = 2000
@@ -58,7 +62,7 @@ class BottleDetection():
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
 
-	def callback(self):
+	def callback_depth(self, data: Image):
 		m=1
 
 	def callback_image(self, data: Image):
@@ -97,12 +101,25 @@ class BottleDetection():
 
 
 
+def depth_to_color_image_raw_cb(data: Image):
+	global node
+	node.callback_depth(data)
+
+def color_image_raw_cb(data: Image):
+	global node
+	node.callback_image(data)
+	
+def odom(data: Odometry):
+	global node 
+	node.Coordonnee_odom(data)
 
 
-node = BottleDetection()
+
 rospy.init_node('Bottle_Detection', anonymous=True)
-rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image,self.Callback)
-rospy.Subscriber("camera/color/image_raw",Image, self.callback_image)
-rospy.Subscriber("/odom", Odometry, self.Coordonnee_odom)
+node = BottleDetection()
+rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
+rospy.Subscriber("camera/color/image_raw",Image, color_image_raw_cb)
+rospy.Subscriber("/odom", Odometry, odom)
+
 rospy.spin()
 
