@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /Grid1
         - /Map1
+        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 355
   - Class: rviz/Selection
@@ -148,6 +149,14 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /bottle
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -215,4 +224,4 @@ Window Geometry:
     collapsed: true
   Width: 1267
   X: 312
-  Y: 53
+  Y: 27
