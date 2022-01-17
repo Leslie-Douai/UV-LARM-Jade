@@ -39,5 +39,7 @@ Evaluation protocol
 7. Stop everything.
 8. Take a look to the code, by starting from the launchfiles.
 
-On a utilisé la méthode de Haar pour faire la detection de bouteille on a une base de données de 633 images positives de la canette et 240 négatives du décors pour entrainer le modèle on a fait les annotations  sur le modèle noir et apres fait les amples pour ensuiite train le modèle pour une durée de 6h pour obtenir une cascade au stage 14 avec les paramètres suivants width 40 et height 90 
+On a utilisé la méthode de Haar pour faire la detection de bouteille on a une base de données de 633 images positives de la canette et 240 négatives du décors pour entrainer le modèle on a fait les annotations  sur le modèle noir et apres fait les amples pour ensuiite train le modèle pour une durée de 15h pour obtenir une cascade au stage 14 avec les paramètres suivants width 40 et height 90 
 Ensuite on a fait un code qui pêrmet de detecter les bouteilles à l'aide de cette cascade et ensuite placer des marqueurs sur la map que gmapping crée 
+Le mapping marche très bien il n'y a pas de problème.
+Pour la détéction de bouteille, cela marche aussi nous avons laissé un code pour les professeurs permettant ainsi de tester la vision et voir son efficacité sur les bouteilles noires
