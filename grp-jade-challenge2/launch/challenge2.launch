@@ -20,8 +20,8 @@
 
 
 <!-- Rosbag du prof qui fait 12Go-->
-    <node pkg="rosbag" type="play" name="player" args="--clock -l $(find grp-jade-challenge2)/challenge-2.bag" output="screen"/> 
+    <node pkg="rosbag" type="play" name="player" args="--clock -l /home/leslie.rineau/catkin_ws/challenge-2.bag" output="screen"/> 
 <!-- Lance rviz -->
     <!-- <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade-challenge2)/include/rvizconfiglaser_rosbag.rviz"/>  -->
-      
+    <node pkg="grp-jade-challenge2" type="testvision.py" name="testvision" output="screen"></node>
 </launch>

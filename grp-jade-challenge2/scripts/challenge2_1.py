@@ -21,24 +21,24 @@ class BottleDetection():
 		self.cascade = cv.CascadeClassifier("/mnt/Secondaire/catkin-ws/src/UV-LARM-Jade/vision/modele/cascade.xml")
 		self.tfListener = tf.TransformListener()
 		self.markerPublisher = rospy.Publisher('/bottle',Marker, queue_size=10)
+		self.camera_width = 1920.0
+		self.camera_height = 1080.0
+		self.hfov = 64
 
 	def detectAndDisplay(self, frame):
 		frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 		frame_gray = cv.equalizeHist(frame_gray)	
-				
-		# cv.imshow('Capture', frame)
-		# cv.waitKey(300)
-
-		bottles = self.cascade.detectMultiScale(frame_gray)
-		
-		print(type(bottles))
-		print(bottles)
-		
-		for (x, y, w, h) in bottles:
+		color_info = (255, 255, 255)		
+		cv.imshow('Capture', frame_gray)
+		cv.waitKey(300)
+	
+		self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
+		print(self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3))
+		'''for (x, y, w, h) in bottles:
 			center=(x+(w/2),y+(h/2))
 			frame=cv.ellipse(frame,center,(w/2,h/2),(255,0,255),4)
 			estimated_pose = self.Pose(x,y, w, h)
-			self.position_marqueur(estimated_pose)
+			self.position_marqueur(estimated_pose)'''
 	
 		
 
