@@ -43,4 +43,4 @@ On a utilisé la méthode de Haar pour faire la detection de bouteille on a une 
 Ensuite on a fait un code qui pêrmet de detecter les bouteilles à l'aide de cette cascade et ensuite placer des marqueurs sur la map que gmapping crée 
 Le mapping marche très bien il n'y a pas de problème.
 Pour la détéction de bouteille, cela marche aussi nous avons laissé un code pour les professeurs permettant ainsi de tester la vision et voir son efficacité sur les bouteilles noires, il sagit de rosrun grp-jade vision.py
-
+Aussi lors du lancement du bag il se peut qe cela prenne du temps et que un message WARN s'affiche cependant cela marche ensuite
