@@ -44,3 +44,4 @@ Ensuite on a fait un code qui pêrmet de detecter les bouteilles à l'aide de ce
 Le mapping marche très bien il n'y a pas de problème.
 Pour la détéction de bouteille, cela marche aussi nous avons laissé un code pour les professeurs permettant ainsi de tester la vision et voir son efficacité sur les bouteilles noires, il sagit de rosrun grp-jade vision.py
 Aussi lors du lancement du bag il se peut qe cela prenne du temps et que un message WARN s'affiche cependant cela marche ensuite
+Cependant nous avons un problème avec les marqueurs qui en théorie devrait marcher mais ne semble pas se mettre surt la map
