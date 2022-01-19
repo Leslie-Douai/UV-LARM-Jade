@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>grp-jade-challenge2</name>
+  <name>grp-jade</name>
   <version>0.0.0</version>
-  <description>The grp-jade-challenge2 package</description>
+  <description>The grp-jade package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

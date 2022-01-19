@@ -25,7 +25,10 @@ _cmd_topic= node_parameter('cmd_topic', '/cmd_vel')
 _cmd_frame_id= node_parameter('cmd_frame_id', 'base_link')
 
 # Initialize command publisher:
-_cmb_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
+commandPublisher = rospy.Publisher(
+    '/cmd_vel_mux/input/navi',
+    Twist, queue_size=10
+)
 
 # Subscribe to topic to get a goal position with goal_subscriber function
 def log_goal(data):
@@ -44,8 +47,14 @@ def move_command(data):
     log_goal(_goal)
     if _goal.header.frame_id != '' :
         local_goal= _trans.transformPose(_cmd_frame_id, _goal)
+        cmd= Twist()
+        cmd.linear.x= 0.7
+        commandPublisher.publish(cmd)
     else :
         local_goal= _goal
+        cmd= Twist()
+        cmd.linear.x= 0.7
+        commandPublisher.publish(cmd)
     log_goal(local_goal)
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
 
