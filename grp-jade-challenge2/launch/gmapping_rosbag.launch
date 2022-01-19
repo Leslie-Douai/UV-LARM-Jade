@@ -7,6 +7,7 @@
     	<param name="maxUrange" value="4.0"/>
     </node>
 
+    <node pkg="grp-jade-challenge2" name="challenge1" type="challenge1.py"/>
     <node pkg="grp-jade-challenge2" type="challenge2_1.py" name="challenge2_1" args="$(find grp-jade-challenge2)/scripts/challenge2_1.py" />
 
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade-challenge2)/rviz/rvizconfiglaser_rosbag.rviz"/>
