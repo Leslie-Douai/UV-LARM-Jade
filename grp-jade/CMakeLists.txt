@@ -197,7 +197,11 @@ catkin_install_python(PROGRAMS
    scripts/challenge2_1.py
    scripts/challenge2_final.py
    scripts/testvision.py
+<<<<<<< HEAD
    scripts/challenge1.py
+=======
+   scripts/fonction.py
+>>>>>>> 24e7f1a66c156850dcfb1b3e9951db55110efd27
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

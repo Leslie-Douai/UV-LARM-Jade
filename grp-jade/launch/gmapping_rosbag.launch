@@ -1,14 +1,24 @@
 <launch>
     <param name="/use_sim_time" value="true" />
     <arg name="scan_topic"  default="scan" />
+    <include file="$(find larm)/launch/challenge-1.launch"/>
     
     <node name="gmapping" pkg="gmapping" type="slam_gmapping">
     	<remap from="scan" to="$(arg scan_topic)"/>
     	<param name="maxUrange" value="4.0"/>
     </node>
 
+<<<<<<< HEAD
     <node pkg="grp-jade" name="challenge1" type="challenge1.py"/>
     <!--<node pkg="grp-jade" type="challenge2_1.py" name="challenge2_1" args="$(find grp-jade)/scripts/challenge2_1.py" />-->
+=======
+<<<<<<< HEAD
+    <node pkg="grp-jade" type="fonction.py" name="fonction" />
+=======
+    <node pkg="grp-jade-challenge2" name="challenge1" type="challenge1.py"/>
+    <node pkg="grp-jade-challenge2" type="challenge2_1.py" name="challenge2_1" args="$(find grp-jade-challenge2)/scripts/challenge2_1.py" />
+>>>>>>> e6a92519918bbcc74f80203ad58eb95a13d801f6
+>>>>>>> 24e7f1a66c156850dcfb1b3e9951db55110efd27
 
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade)/include/rvizconfiglaser_simul.rviz"/>
       
