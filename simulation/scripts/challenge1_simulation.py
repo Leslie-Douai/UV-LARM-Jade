@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 import math, rospy, math
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, PoseStamped
 from sensor_msgs.msg import LaserScan
 import time
 from random import randint
-print("Normalement j'apparait en premier et à chaque spin")
+'''print("Normalement j'apparait en premier et à chaque spin")
 commandPublisher = rospy.Publisher(
     '/cmd_vel_mux/input/navi',
     Twist, queue_size=10
@@ -77,7 +77,7 @@ rospy.init_node('move', anonymous=True)
 # connect to the topic:
 print("interpret_scan")
 rospy.Subscriber('scan', LaserScan, interpret_scan)
-
+rospy.Subscriber("/goal", PoseStamped, faire_evoluer_robot)
 # call the aire_evoluer_robot at a regular frequency:
 print("faire_evoluer_robot")
 rospy.Timer( rospy.Duration(0.1), faire_evoluer_robot, oneshot=False )
@@ -85,4 +85,45 @@ print("Normalement j'apparait")
 #spin() enter the program in a infinite loop
 print("Start challenge1.py")
 rospy.spin()
-print("C'est fini le spin est fini")
+print("C'est fini le spin est fini")'''
+#!/usr/bin/env python
+import rospy
+from geometry_msgs.msg import PoseStamped, Twist
+import tf
+
+# Déclaration de la variable globale goal
+goal= PoseStamped()
+
+# Subscriber node qui reçoit les informations d'objectifs de deplacement
+def callback(data):
+    global goal
+    goal= data
+    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data)
+    print(type(data))
+
+# Second callback activé fréquemment, pour envoyer la commande de vélocité au robot
+#def move_command(data):
+    #goal.header.stamp= rospy.Time() #on s'en fout du temps donc on l'initialise à 0
+    #local_goal= tfListener.transformPose("base_footprint", goal)
+    #cmd= Twist()
+    #cmd.linear.x= 0.1
+    #commandPublisher.publish(cmd)
+
+###########################################################################
+# First of all:
+rospy.init_node('talker', anonymous=True)
+
+# Initialize ROS Publisher node
+#commandPublisher= rospy.Publisher('my_command', Twist, queue_size=10)
+
+# Initialize ROS Subcriber node
+rospy.Subscriber("goal", PoseStamped, callback)
+
+# Initialisation de la variable globale qui subscribe aux topics tf
+tfListener= tf.TransformListener()
+
+# call the move_command at a regular frequency:
+rospy.Timer( rospy.Duration(0.1), move_command, oneshot=False )
+
+# spin() enter the program in a infinite loop
+rospy.spin()
