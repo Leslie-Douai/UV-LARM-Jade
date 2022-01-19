@@ -21,26 +21,36 @@ class Black_Bottle():
 	def __init__(self):
 		self.cascade = cv.CascadeClassifier(get_pkg_path() + "/scripts/cascade.xml")
 		self.tfListener = tf.TransformListener()
-		self.Publisher = rospy.Publisher('/bottle',Marker, queue_size=10)
-		self.Map = rospy.Publisher('/map',Marker, queue_size=10)
+		self.publisher = rospy.Publisher('/bottle',Marker, queue_size=10)
+		self.map = rospy.Publisher('/map',Marker, queue_size=10)
 		self.vision_horizontale = 64
 		self.camera_width = 1920
 		self.camera_height = 1080
 
 	def DetectAndDisplay(self, frame):
 		frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-		frame_gray = cv.equalizeHist(frame_gray)	
-		color_info = (255, 255, 255)		
-		cv.imshow('Capture', frame_gray)
-		cv.waitKey(300)
+		'''frame_gray = cv.equalizeHist(frame_gray)'''
 	
-		self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
-		print(self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3))
+		bottles = self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
+		frame=cv.rectangle(frame,(384,0),(510,128),(0,255,0),3)
+		cv.imshow('Capture', frame)
+		cv.waitKey(10)
+		print(type(bottles))
 		for (x,y,w,h) in bottles:
+			x = int(x)
+			y = int(y)
+			w = int(w)
+			h = int(h)
 			center=(x+(w/2),y+(h/2))
-			frame=cv.ellipse(frame,center,(w/2,h/2),(255,0,255),4)
-			estimation = self.Pose(x,y, w, h)
-			self.position_marker(estimation)
+			a = int(center[0])
+			b = int(center[1])
+			print(center)
+			print(type(center))
+			frame=cv.ellipse(frame,(a,b),(w//2,h//2),(255,0,255),4)
+			cv.imshow('Capture', frame)
+			cv.waitKey(10)
+			'''estimation = self.Pose(x,y, w, h)
+			self.position_marker(estimation)'''
 
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
@@ -50,11 +60,11 @@ class Black_Bottle():
 
 	def Callback_image(self, data: Image):
 		bridge = CvBridge()
+		cv_image = bridge.imgmsg_to_cv2(data, "bgr8")
 		try:
-			cv_image = np.array(bridge.imgmsg_to_cv2(data, "bgr8"))
 			self.DetectAndDisplay(cv_image)
 		except Exception as err:
-			print("Erreur ", err)
+			print("Black_Bottle.Callback_image: Erreur ", err)
 	
 	def Pose(self,x,y,w,h):
 		distance = 4000
@@ -78,14 +88,16 @@ class Black_Bottle():
 		marqueur.action = Marker.ADD
 		marqueur.pose = stamped.pose
 		marqueur.scale.x = 0.5
+		x= int(marqueur.scale.x)
 		marqueur.scale.y = 0.5
+		x= int(marqueur.scale.x)
 		marqueur.color.r = 1.0
 		marqueur.color.g = 0.0
 		marqueur.color.b = 1.0
 		marqueur.color.a = 1.0
-		stamped = PoseStamped_create(marqueur.scale.x,marqueur.scale.y)
-		Publisher.publish(stamped)
-		Map.publish(stamped)
+		stamped = PoseStamped.create(marqueur.scale.x,marqueur.scale.y)
+		self.publisher.publish(stamped)
+		self.map.publish(stamped)
 
 
 
