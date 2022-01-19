@@ -3,18 +3,25 @@ import rospy
 from geometry_msgs.msg import PoseStamped, Twist
 import tf
 
+## VQRIQBLE GLOBALE:
+###########################################################################
 # Déclaration de la variable globale goal
-goal= PoseStamped()
+goal= None
 # Initialisation de la variable globale qui subscribe aux topics tf
-tfListener= tf.TransformListener()
+tfListener= None
+
+
+## CALLBACK:
+###########################################################################
 
 # Subscriber node qui reçoit les informations d'objectifs de deplacement
 def callback(data):
     global goal
     global local_goal
     goal= data
-    local_goal= tfListener.transformPose("/base_footprint", goal)
-    print(type(local_goal))
+    goal.header.stamp= rospy.Time()
+    goal= tfListener.transformPose("/map", goal)
+    print(goal)
 
 # Second callback activé fréquemment, pour envoyer la commande de vélocité au robot
 #def move_command(data):
@@ -24,15 +31,20 @@ def callback(data):
     #cmd.linear.x= 0.1
     #commandPublisher.publish(cmd)
 
+
+## SCRIPT:
 ###########################################################################
+
 # First of all:
 rospy.init_node('talker', anonymous=True)
+
+tfListener= tf.TransformListener()
 
 # Initialize ROS Publisher node
 #commandPublisher= rospy.Publisher('my_command', Twist, queue_size=10)
 
 # Initialize ROS Subcriber node
-rospy.Subscriber("goal", PoseStamped, callback)
+rospy.Subscriber("/goal", PoseStamped, callback)
 
 # call the move_command at a regular frequency:
 #rospy.Timer( rospy.Duration(0.1), move_command, oneshot=False )
