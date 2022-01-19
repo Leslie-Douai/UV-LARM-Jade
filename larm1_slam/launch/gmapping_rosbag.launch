@@ -1,4 +1,5 @@
 <launch>
+    <include file="$(find larm)/launch/challenge-1.launch"/>
     <param name="/use_sim_time" value="true" />
     <arg name="scan_topic"  default="scan" />
     
@@ -7,8 +8,8 @@
     	<param name="maxUrange" value="4.0"/>
     </node>
 
-
-    <node pkg="rosbag" type="play" name="player" args="--clock $(find larm1_slam)/challenge-2.bag" output="screen"/>
+    <node pkg="larm1_slam" type="challenge1_simulation.py" name="challenge1" />
+    <!--<node pkg="rosbag" type="play" name="player" args="- -clock $(find larm1_slam)/challenge-2.bag" output="screen"/>-->
     <!--<node pkg="larm1_slam" type="challenge2_1.py" name="challenge2_1" args="$(find larm1_slam)/scripts/challenge2_1.py" />-->
 
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find simulation)/include/rvizconfiglaser_rosbag.rviz"/>

@@ -190,6 +190,7 @@ include_directories(
 
 catkin_install_python(PROGRAMS
    scripts/move_to.py
+   scripts/challenge1_simulation.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 #############

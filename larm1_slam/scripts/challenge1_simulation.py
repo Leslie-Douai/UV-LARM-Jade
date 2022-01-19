@@ -1,28 +1,37 @@
 #!/usr/bin/python3
 import math, rospy, math
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, PoseStamped
 from sensor_msgs.msg import LaserScan
 import time
+from random import randint
+print("Normalement j'apparait en premier et à chaque spin")
+commandPublisher = rospy.Publisher(
+    '/cmd_vel_mux/input/navi',
+    Twist, queue_size=10
+)
 
 obstacles= []
 
 # Publish velocity commandes:
 #Permet de faire bouger le robot en ligne droite de 0.1
 def move_command_linear(data):
+    print("move_command_linear(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.linear.x= 0.1
+    cmd.linear.x= 0.7
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
 
 def move_command_angular(data):
+    print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.angular.z= 2
+    cmd.angular.z= -2
     commandPublisher.publish(cmd) #ma meilleure amie
 
 # Publish velocity commandes:
 #Va recup les obstacle dans une liste global qu'on v apouvoir mettre à jour
 def interpret_scan(data):
+    print("Je fait le tableau")
     global obstacles
     rospy.loginfo('I get scans')
     obstacles= []
@@ -43,28 +52,37 @@ def interpret_scan(data):
 
 def faire_evoluer_robot(data):
     t=0
+    print("Je suis bloquée dans faire_evoluer robot")
     for a in obstacles :
         if -enveloppe_x < a[0] < enveloppe_x :
             if -enveloppe_y < a[1] < enveloppe_y  and t==0:
                 t=1
+                print("Aie un truc dans l'enveloppe")
     if t == 0:
         move_command_linear(data)
+        print("J'avance'")
     else:
+        print("Je tourne")
         move_command_angular(data)
-
-def enveloppe(x,y):
-    enveloppe_x = x
-    enveloppe_y = y
-
-def start_record_scan(data):
-    commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
-   
-def end_record_scan(data):
-    commandPublisher.publish( rosbag record -O subset /turtlebot_teleop/cmd_vel )
-
-
-def record(data):
-
-
         
 
+
+#enveloppe
+enveloppe_x = 0.5
+enveloppe_y = 0.5
+
+# Initialize ROS::node
+rospy.init_node('move', anonymous=True)
+
+# connect to the topic:
+print("interpret_scan")
+rospy.Subscriber('scan', LaserScan, interpret_scan)
+rospy.Subscriber("/goal", PoseStamped, faire_evoluer_robot)
+# call the aire_evoluer_robot at a regular frequency:
+print("faire_evoluer_robot")
+rospy.Timer( rospy.Duration(0.1), faire_evoluer_robot, oneshot=False )
+print("Normalement j'apparait")
+#spin() enter the program in a infinite loop
+print("Start challenge1.py")
+rospy.spin()
+print("C'est fini le spin est fini")

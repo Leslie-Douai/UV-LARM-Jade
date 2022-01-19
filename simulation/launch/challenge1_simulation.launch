@@ -2,7 +2,7 @@
 
 <include file="$(find larm)/launch/challenge-1.launch"/>
 
-<node pkg="simulation" name="challenge1test" type="challenge1_simulation.py" args="$(find simulation)/scripts/challenge1_simulation.py"/>
+<node pkg="larm1_slam" name="fonction" type="fonction.py" />
 
 <node pkg="rviz" name="rviz" type="rviz" args="-d $(find simulation)/include/rvizconfiglaser_simul.rviz"/>
 

@@ -197,7 +197,6 @@ catkin_install_python(PROGRAMS
    scripts/challenge2_1.py
    scripts/challenge2_final.py
    scripts/testvision.py
-   scripts/fonction.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
