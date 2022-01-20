@@ -1,7 +1,6 @@
 <launch>
 <!-- ATTENTION mettre les fichiers utilisés sur la branche -->
 <!-- lance simulation sur chrono initialiser 0 -->
-     <param name="/use_sim_time" value="true" />
      <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
     
 
@@ -17,7 +16,8 @@
         <param name="angle_min" value="-1.35"/>
         <param name="angle_max" value="1.35"/>
     </node>
-
+    <node pkg="tf" type="static_transform_publisher" name="scan_tf_broadcaster" args="0 0.1 0.1 0 0 0 1 base_footprint laser 10" />
+    
 <!-- Vision un python qui tourne avec une intelligence déja entrainée .xml qu'on log dans le load cascade-->
     <!--<node pkg="grp-jade" name = "reconnaissance" type="challenge2.py" output="screen"/>-->
     <node pkg="grp-jade" name = "move" type="move.py" output="screen"/>
