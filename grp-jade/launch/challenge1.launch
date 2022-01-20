@@ -1,9 +1,9 @@
 <launch>
 
-<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+<include file="/home/bot/catkin_ws/src/mb6-tbot/turtlebot2/turtlebot/turtlebot_bringup/launch/minimal.launch" />
 
 <node pkg="grp-jade" name="challenge1test" type="challenge1.py"/>
-<node pkg="rviz" name="rviz" type="rviz" args="$(find grp-jade)/include/rvizconfiglaser.rviz"/>
+<node pkg="rviz" name="rviz" type="rviz" args="/home/bot/catkin_ws/src/UV-LARM-Jade/grp-jade/include/rvizconfiglaser.rviz"/>
 
 <node pkg="urg_node" name="urg_node" type="urg_node">
     <param name="angle_min" value="-1.35"/>
