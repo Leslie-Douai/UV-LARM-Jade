@@ -18,7 +18,7 @@ def move_command_linear(data):
     print("move_command_linear(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.linear.x= 0.7
+    cmd.linear.x= 0.2
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
 
 def move_command_angular(data):
