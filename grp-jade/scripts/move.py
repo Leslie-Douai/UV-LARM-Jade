@@ -25,7 +25,7 @@ def move_command_angular(data):
     print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.angular.z= -3
+    cmd.angular.z= -2
     commandPublisher.publish(cmd) #ma meilleure amie
 
 # Publish velocity commandes:
