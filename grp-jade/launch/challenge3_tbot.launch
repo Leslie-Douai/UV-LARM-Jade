@@ -2,15 +2,14 @@
 <!-- ATTENTION mettre les fichiers utilisés sur la branche -->
 <!-- lance simulation sur chrono initialiser 0 -->
      <param name="/use_sim_time" value="true" /> 
-     <include file="$(find turtlebot_bringup)/launch/start.launch"/>
+     <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
     
 
 <!-- fait marcher le scan -->
-    <arg name="scan_topic"  default="scan" />
+
 
 <!-- gmapping -->    
     <node name="gmapping" pkg="gmapping" type="slam_gmapping">
-    	<remap from="scan" to="$(arg scan_topic)"/>
     	<param name="maxUrange" value="4.0"/>
     </node>
 
