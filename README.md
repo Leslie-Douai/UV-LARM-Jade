@@ -1,4 +1,4 @@
-# UV-LARM-Jade - Branche challenge2
+# UV-LARM-Jade - Branche challenge3
 Respository du groupe Jade de l'UV 2021 pour le challenge1
 
 Simon Boudoux - Leslie Rineau
@@ -8,7 +8,7 @@ https://bitbucket.org/imt-mobisyst/mb6-tbot.git
 
 _Lancement_
 
-roslaunch grp-jade challenge2.launch
+roslaunch grp-jade challenge3.launch
 echo the bottle topic
 
 Start rviz to visualize the map (if it is not automaticaly started)
@@ -39,9 +39,5 @@ Evaluation protocol
 7. Stop everything.
 8. Take a look to the code, by starting from the launchfiles.
 
-On a utilisé la méthode de Haar pour faire la detection de bouteille on a une base de données de 633 images positives de la canette et 240 négatives du décors pour entrainer le modèle on a fait les annotations  sur le modèle noir et apres fait les amples pour ensuiite train le modèle pour une durée de 15h pour obtenir une cascade au stage 14 avec les paramètres suivants width 40 et height 90 
-Ensuite on a fait un code qui pêrmet de detecter les bouteilles à l'aide de cette cascade et ensuite placer des marqueurs sur la map que gmapping crée 
-Le mapping marche très bien il n'y a pas de problème.
-Pour la détéction de bouteille, cela marche aussi nous avons laissé un code pour les professeurs permettant ainsi de tester la vision et voir son efficacité sur les bouteilles noires, il sagit de rosrun grp-jade vision.py
-Aussi lors du lancement du bag il se peut qe cela prenne du temps et que un message WARN s'affiche cependant cela marche ensuite
-Cependant nous avons un problème avec les marqueurs qui en théorie devrait marcher mais ne semble pas se mettre surt la map
+Pour ce challenge 3 nous avons essayer de faire en sorte que le robot fasse des ricochets pour mapper l'espace et puis il y a la partie vision qui récupère en théorie les positions des bouteilles et qui les met sur la map à l'aide de marqueurs.
+Il y a cependant quelques souci sur la publications des marqueurs
