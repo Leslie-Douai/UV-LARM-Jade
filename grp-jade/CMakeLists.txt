@@ -192,13 +192,11 @@ include_directories(
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
 catkin_install_python(PROGRAMS
    scripts/challenge2.py
-   scripts/vision.py
+   scripts/move.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
-
 #############
 ## Testing ##
 #############
@@ -211,5 +209,3 @@ catkin_install_python(PROGRAMS
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-

@@ -17,12 +17,13 @@ def get_pkg_path():
     rospack = rospkg.RosPack()
     return rospack.get_path('grp-jade')
 
+
 class Black_Bottle():
 	def __init__(self):
 		self.cascade = cv.CascadeClassifier(get_pkg_path() + "/scripts/cascade.xml")
 		self.tfListener = tf.TransformListener()
-		self.publisher = rospy.Publisher('/bottle',Marker, queue_size=10)
-		self.map = rospy.Publisher('/map',Marker, queue_size=10)
+		self.publisher = rospy.Publisher('/bottle',Pose, queue_size=10)
+		self.map = rospy.Publisher('/map',Pose, queue_size=10)
 		self.vision_horizontale = 64
 		self.camera_width = 1920
 		self.camera_height = 1080
@@ -32,31 +33,35 @@ class Black_Bottle():
 		'''frame_gray = cv.equalizeHist(frame_gray)'''
 	
 		bottles = self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
-		frame=cv.rectangle(frame,(384,0),(510,128),(0,255,0),3)
 		cv.imshow('Capture', frame)
 		cv.waitKey(10)
-		print(type(bottles))
 		for (x,y,w,h) in bottles:
 			x = int(x)
 			y = int(y)
-			w = int(w)
-			h = int(h)
+			w = int(w/2)
+			h = int(h/2)
 			center=(x+(w/2),y+(h/2))
 			a = int(center[0])
 			b = int(center[1])
-			print(center)
-			print(type(center))
-			frame=cv.ellipse(frame,(a,b),(w//2,h//2),(255,0,255),4)
+			frame = cv.ellipse(frame,(a,b),(w,h),360,0,360,255,4)
 			cv.imshow('Capture', frame)
 			cv.waitKey(10)
-			'''estimation = self.Pose(x,y, w, h)
-			self.position_marker(estimation)'''
+# N'arrivant pas a récuperer la profondeur via la caméra je n'utilise pas cette partie du code je vais simplement marquer la position du robot quand il voit une bouteille
+			#estimation = self.Pose(x,y,w,h)
+			#self.Creation_marqueur(estimation)
+			self.publisher.publish(self.position)
+			self.map.publish(self.position)
 
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
 
-	def Callback_depth(self, data: Image):
-		m=1
+	'''def Callback_depth(self, data: Image):
+		bridge = CvBridge()
+		self.depth = np.array(bridge.imgmsg_to_cv2(depth_data, "brg8")
+		try:
+			
+		except Exception as err:
+			print("Black_Bottle.Callback_depth: Erreur ", err)'''
 
 	def Callback_image(self, data: Image):
 		bridge = CvBridge()
@@ -88,23 +93,22 @@ class Black_Bottle():
 		marqueur.action = Marker.ADD
 		marqueur.pose = stamped.pose
 		marqueur.scale.x = 0.5
-		x= int(marqueur.scale.x)
 		marqueur.scale.y = 0.5
-		x= int(marqueur.scale.x)
 		marqueur.color.r = 1.0
 		marqueur.color.g = 0.0
 		marqueur.color.b = 1.0
 		marqueur.color.a = 1.0
 		stamped = PoseStamped.create(marqueur.scale.x,marqueur.scale.y)
+		print(type(stamped))
 		self.publisher.publish(stamped)
 		self.map.publish(stamped)
 
 
 
-def depth_to_color_image_raw_cb(data: Image):
+'''def depth_to_color_image_raw_cb(data: Image):
 	global node
 	node.Callback_depth(data)
-
+'''
 def color_image_raw_cb(data: Image):
 	global node
 	node.Callback_image(data)
@@ -117,8 +121,9 @@ def odom(data: Odometry):
 
 rospy.init_node('Black_Bottle', anonymous=True)
 node = Black_Bottle()
-rospy.Subscriber("camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
+#rospy.Subscriber("camera/aligned_depth_to_color/image_raw", Image,depth_to_color_image_raw_cb)
 rospy.Subscriber("camera/color/image_raw",Image, color_image_raw_cb)
 rospy.Subscriber("/odom", Odometry, odom)
 rospy.spin()
 
+# Tout ce qui est en rapport avec la profondeur est en commentaire
