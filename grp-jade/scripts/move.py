@@ -76,8 +76,8 @@ rospy.init_node('move', anonymous=True)
 
 # connect to the topic:
 print("interpret_scan")
-rospy.Subscriber('scan', LaserScan, interpret_scan)
-rospy.Subscriber("/goal", PoseStamped, faire_evoluer_robot)
+rospy.Subscriber('/scan', LaserScan, interpret_scan)
+#rospy.Subscriber("/goal", PoseStamped, faire_evoluer_robot)
 # call the aire_evoluer_robot at a regular frequency:
 print("faire_evoluer_robot")
 rospy.Timer( rospy.Duration(0.1), faire_evoluer_robot, oneshot=False )

@@ -1,17 +1,20 @@
 <launch>
 <!-- ATTENTION mettre les fichiers utilisés sur la branche -->
 <!-- lance simulation sur chrono initialiser 0 -->
+<<<<<<< HEAD
     <param name="/use_sim_time" value="true" /> 
      <include file="/mnt/Secondaire/catkin-ws/src/mb6-tbot/turtlebot2/turtlebot/turtlebot_bringup/launch/minimal.launch"/>
      <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+=======
+     <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+>>>>>>> 6b8499baed9b89611be6deae8857a5eec57f9290
     
 
 <!-- fait marcher le scan -->
-    <arg name="scan_topic"  default="scan" />
+
 
 <!-- gmapping -->    
-    <node name="gmapping" pkg="gmapping" type="slam_gmapping">
-    	<remap from="scan" to="$(arg scan_topic)"/>
+    <node name="gmapping" pkg="gmapping" type="slam_gmapping" args="scan:scan">
     	<param name="maxUrange" value="4.0"/>
     </node>
 
@@ -19,10 +22,18 @@
         <param name="angle_min" value="-1.35"/>
         <param name="angle_max" value="1.35"/>
     </node>
+<<<<<<< HEAD
     <node pkg="tf" type="static_transform_publisher" name="base_footprint_in_odom" args="2.3 4.0 0.01 0.8 0.0 0.0 /odom /base_footprint 80" />
 <!-- Vision un python qui tourne avec une intelligence déja entrainée .xml qu'on log dans le load cascade-->
     <node pkg="grp-jade" name = "reconnaissance" type="challenge2.py" output="screen"/>
     <!--<node pkg="grp-jade" name = "move" type="move.py" output="screen"/>-->
+=======
+    <node pkg="tf" type="static_transform_publisher" name="scan_tf_broadcaster" args="0 0.1 0.1 0 0 0 1 base_footprint laser 10" />
+    
+<!-- Vision un python qui tourne avec une intelligence déja entrainée .xml qu'on log dans le load cascade-->
+    <!--<node pkg="grp-jade" name = "reconnaissance" type="challenge2.py" output="screen"/>-->
+    <node pkg="grp-jade" name = "move" type="move.py" output="screen"/>
+>>>>>>> 6b8499baed9b89611be6deae8857a5eec57f9290
 
 <!-- Lance rviz -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade)/include/rvizconfiglaser_rosbag.rviz"/>  
