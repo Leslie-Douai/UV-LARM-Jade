@@ -9,7 +9,7 @@ Pour avoir accès au challenge 1
 ``` bash
 git checkout challenge1
 ```
-# Objectif 
+### Objectif 
 _Minimal:_
 
 The group follows the consigns (i.e. the repository is presented as expected)
