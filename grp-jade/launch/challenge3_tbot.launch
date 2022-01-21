@@ -2,7 +2,7 @@
 <!-- ATTENTION mettre les fichiers utilisés sur la branche -->
 <!-- lance simulation sur chrono initialiser 0 -->
     <param name="/use_sim_time" value="true" /> 
-     <include file="/mnt/Secondaire/catkin-ws/src/mb6-tbot/turtlebot2/turtlebot/turtlebot_bringup/launch/minimal.launch"/>
+     <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
      <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
     
 
