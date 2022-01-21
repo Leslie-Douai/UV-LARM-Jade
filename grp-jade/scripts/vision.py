@@ -17,7 +17,7 @@ def detectAndDisplay(frame):
         frame = cv.ellipse(frame, center, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
         faceROI = frame_gray[y:y+h,x:x+w]
 
-    cv.imshow('Capture - Face detection', frame)
+    cv.imshow('Capture - Canette detection', frame)
 parser = argparse.ArgumentParser(description='Code for Cascade Classifier tutorial.')
 parser.add_argument('--face_cascade', help='Path to face cascade.', default=get_pkg_path() + "/scripts/cascade.xml")
 
