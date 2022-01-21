@@ -1,5 +1,5 @@
 # UV-LARM-Jade - Branche challenge3
-Respository du groupe Jade de l'UV 2021 pour le challenge1
+Respository du groupe Jade de l'UV 2021 challlenge 3
 
 Simon Boudoux - Leslie Rineau
 
@@ -10,9 +10,9 @@ Repo à clone:
 ```bash
 git clone https://github.com/Leslie-Douai/UV-LARM-Jade.git
 ```
-## Lancement
+## Code
 
-Pour avoir acces au challenge 3
+Pour avoir accès au challenge 3
 ``` bash
 git checkout challenge3
 ```
@@ -47,10 +47,15 @@ _De plus ample information sont disponible sur le gitbook :_
 https://ceri-num.gitbook.io/uv-larm/ 
 
 
-
-
-roslaunch grp-jade challenge3.launch
-echo the bottle topic
+## Lancement
+_Simulation_
+```bash
+roslaunch grp-jade challenge3_simulation.launch
+```
+_tbot_
+```bash
+roslaunch grp-jade challenge3_tbot.launch
+```
 
 Start rviz to visualize the map (if it is not automaticaly started)
 
