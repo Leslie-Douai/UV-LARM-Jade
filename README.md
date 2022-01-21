@@ -89,6 +89,7 @@ Je viens d'IS
 
 
 _Leslie_
+
 Depuis la rentrée du nouvel an, à la MDE l'épidémie de covid bat son plein instaurant un climat tendu et usant pour ses résidents qui se test régulièrement. 
 
 Pour ma part j'ai été cas contact, un peu plus d'une dizaine de fois, depuis la rentrée. J'ai loupé plusieurs cours afin d'aller me faire tester, ou pour m'isoler quand j'étais un cas contact sérieux. J'ai également été bien fatiguée ces dernières semaines celà m'a freiner pour bosser l'UV
