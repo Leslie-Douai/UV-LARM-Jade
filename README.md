@@ -77,8 +77,20 @@ _Optional_
 Pour ce challenge 3 nous avons essayer de faire en sorte que le robot fasse des ricochets pour mapper l'espace et puis il y a la partie vision qui récupère en théorie les positions des bouteilles et qui les met sur la map à l'aide de marqueurs.
 Il y a cependant quelques souci sur la publications des marqueurs
 
-## Environnement de travail
+# Environnement de travail
 **`Covid19`**
 **`Fatigue`**
 **`Usure mentale`**
-En ce moment à la résidence éudiante et depuis bientôt 3 semaines la covid touche de plus en plus de personne 
+**`IS`**
+
+_Simon_ 
+
+Je viens d'IS 
+
+
+_Leslie_
+Depuis la rentrée du nouvel an, à la MDE l'épidémie de covid bat son plein instaurant un climat tendu et usant pour ses résidents qui se test régulièrement. 
+
+Pour ma part j'ai été cas contact, un peu plus d'une dizaine de fois, depuis la rentrée. J'ai loupé plusieurs cours afin d'aller me faire tester, ou pour m'isoler quand j'étais un cas contact sérieux. J'ai également été bien fatiguée ces dernières semaines celà m'a freiner pour bosser l'UV
+
+
