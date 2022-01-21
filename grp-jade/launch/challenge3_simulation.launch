@@ -17,7 +17,7 @@
 
 <!-- node pour exploration-->
     <!--<node pkg="grp-jade" name = "reconnaissance" type="challenge2.py" output="screen"/>-->
-    <node pkg="grp-jade" name = "move" type="move.py" output="screen"/>
+    <node pkg="grp-jade" name = "move" type="move_simulation.py" output="screen"/>
 
 <!-- Lance rviz -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade)/include/rvizconfiglaser_rosbag.rviz"/>  

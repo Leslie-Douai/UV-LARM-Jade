@@ -195,6 +195,7 @@ include_directories(
 catkin_install_python(PROGRAMS
    scripts/challenge2.py
    scripts/move.py
+   scripts/move_simulation.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 #############
