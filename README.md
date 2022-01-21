@@ -9,7 +9,7 @@ Pour avoir accès au challenge 1
 ``` bash
 git checkout challenge1
 ```
-### Objectif 
+### Objectifs 
 _Minimal:_
 
 The group follows the consigns (i.e. the repository is presented as expected)
@@ -30,7 +30,7 @@ Pour avoir accès au challenge 2
 ``` bash
 git checkout challenge2
 ```
-# Objectif 
+### Objectifs 
 
 ## Challenge 3
 ```bash
@@ -40,4 +40,4 @@ Pour avoir accès au challenge 3
 ``` bash
 git checkout challenge3
 ```
-# Objectif 
+### Objectifs 
