@@ -18,14 +18,14 @@ def move_command_linear(data):
     print("move_command_linear(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.linear.x= 0.2
+    cmd.linear.x= 0.1
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
 
 def move_command_angular(data):
     print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
     cmd= Twist()
-    cmd.angular.z= -2
+    cmd.angular.z= -1.5
     commandPublisher.publish(cmd) #ma meilleure amie
 
 # Publish velocity commandes:
@@ -68,8 +68,8 @@ def faire_evoluer_robot(data):
 
 
 #enveloppe
-enveloppe_x = 0.5
-enveloppe_y = 0.5
+enveloppe_x = 0.3
+enveloppe_y = 0.2
 
 # Initialize ROS::node
 rospy.init_node('move', anonymous=True)
