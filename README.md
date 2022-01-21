@@ -10,20 +10,43 @@ Repo à clone:
 ```bash
 git clone https://github.com/Leslie-Douai/UV-LARM-Jade.git
 ```
-##Lancement
+## Lancement
 
 Pour avoir acces au challenge 3
 ``` bash
 git checkout challenge3
 ```
 
-##Ressources
+## Ressources
 **`python3`**
 **`ROS noetic`**
 **`mb6-bot`**
+**`Gmapping`**
+**`numpy`**
+**`tensorflow`**
+**`openCV`**
+**`sklearn`**
+**`scipy`**
+**`matplotlib`**
+**`psutil`**
+**`realsense2_camera`**
 ```bash
 git clone https://bitbucket.org/imt-mobisyst/mb6-tbot.git
+
+sudo apt install ros-noetic-openslam-gmapping ros-noetic-slam-gmapping
+
+sudo apt install \
+    librealsense2-dkms \
+    librealsense2-utils \
+    librealsense2-dev \
+    librealsense2-dbg \
+
+    pip3 install numpy tensorflow opencv-python opencv-contrib-python sklearn scipy matplotlib psutil
 ```
+_ De plus ample information sont disponible sur le gitbook : _
+https://ceri-num.gitbook.io/uv-larm/ 
+
+
 
 
 roslaunch grp-jade challenge3.launch
