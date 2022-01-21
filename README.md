@@ -41,9 +41,9 @@ sudo apt install \
     librealsense2-dev \
     librealsense2-dbg \
 
-    pip3 install numpy tensorflow opencv-python opencv-contrib-python sklearn scipy matplotlib psutil
+pip3 install numpy tensorflow opencv-python opencv-contrib-python sklearn scipy matplotlib psutil
 ```
-_ De plus ample information sont disponible sur le gitbook : _
+_De plus ample information sont disponible sur le gitbook :_
 https://ceri-num.gitbook.io/uv-larm/ 
 
 
