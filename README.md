@@ -6,7 +6,25 @@ Simon Boudoux - Leslie Rineau
 Attention : il faut cloner le repository mb6-tbot
 https://bitbucket.org/imt-mobisyst/mb6-tbot.git
 
-_Lancement_
+Repo à clone:
+```bash
+git clone https://github.com/Leslie-Douai/UV-LARM-Jade.git
+```
+##Lancement
+
+Pour avoir acces au challenge 3
+``` bash
+git checkout challenge3
+```
+
+##Ressources
+**`python3`**
+**`ROS noetic`**
+**`mb6-bot`**
+```bash
+git clone https://bitbucket.org/imt-mobisyst/mb6-tbot.git
+```
+
 
 roslaunch grp-jade challenge3.launch
 echo the bottle topic
