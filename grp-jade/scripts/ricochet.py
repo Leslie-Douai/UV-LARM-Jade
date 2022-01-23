@@ -5,15 +5,16 @@ from sensor_msgs.msg import LaserScan
 import time
 from random import randint
 print("Normalement j'apparait en premier et à chaque spin")
+# Publish velocity commandes:
 commandPublisher = rospy.Publisher(
     '/cmd_vel_mux/input/navi',
     Twist, queue_size=10
 )
 
+# Création du tableau pdans lequel se trouve les valeurs des postions des obstacles detectes par le laser
 obstacles= []
 
-# Publish velocity commandes:
-#Permet de faire bouger le robot en ligne droite de 0.1
+#Permet de faire bouger le robot en ligne droite de 0.1 
 def move_command_linear(data):
     print("move_command_linear(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
@@ -21,6 +22,7 @@ def move_command_linear(data):
     cmd.linear.x= 0.1
     commandPublisher.publish(cmd) #ma meilleure amrospy.spin()
 
+#Permet de faire bouger le robot en rotation de -1.5, le moins permet de le faire tourner du côté droit
 def move_command_angular(data):
     print("move_command_angular(data)")
     # Compute cmd_vel here and publish... (do not forget to reduce timer duration)
@@ -28,15 +30,15 @@ def move_command_angular(data):
     cmd.angular.z= -1.5
     commandPublisher.publish(cmd) #ma meilleure amie
 
-# Publish velocity commandes:
-#Va recup les obstacle dans une liste global qu'on v apouvoir mettre à jour
+
+#Va recup les obstacle dans une liste global qui sort des données du laser, qu'on va pouvoir mettre à jour
 def interpret_scan(data):
     print("Je fait le tableau")
     global obstacles
     rospy.loginfo('I get scans')
     obstacles= []
     angle= data.angle_min #angle minimum 
-    #Comment est cosntruit obstacle ?
+    #Comment est cosntruit obstacle 
     for aDistance in data.ranges : # on parcourt le parametre range de data cad le tableau immense de point
         
         if 0.1 < aDistance and aDistance < 5.0 : # Si la distance est trop petite
@@ -67,7 +69,7 @@ def faire_evoluer_robot(data):
         
 
 
-#enveloppe
+#enveloppe qui permet de definir un rectangle autour du robot qui est censé rester vide lors du mouvement et du choix du mouvement a faire
 enveloppe_x = 0.3
 enveloppe_y = 0.2
 
