@@ -16,8 +16,9 @@
     </node>
 
 <!-- node pour exploration-->
+    <!--il n'y a pas la reconnaissance car il n'y a pas de canette en simulation-->
     <!--<node pkg="grp-jade" name = "reconnaissance" type="challenge2.py" output="screen"/>-->
-    <node pkg="grp-jade" name = "move" type="move_simulation.py" output="screen"/>
+    <node pkg="grp-jade" name = "ricochet" type="ricochet_simul.py" output="screen"/>
 
 <!-- Lance rviz -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find grp-jade)/include/rvizconfiglaser_rosbag.rviz"/>  
