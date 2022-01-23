@@ -85,7 +85,7 @@ Il y a cependant quelques souci sur la publications des marqueurs
 
 _Simon_ 
 
-Je viens d'IS 
+Je viens du domaine IS donc j'ai eu un souci sur l'apprentissage et la compréhension de l'environnement du code car je ne suis pas à habitué a faire cela et j'ai pris du temps pour travailler. Cependant j'ai essayé de mettre a fond dedans pour m'améliorer.
 
 
 _Leslie_
