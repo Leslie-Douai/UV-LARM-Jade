@@ -13,10 +13,12 @@ from cv_bridge import CvBridge, CvBridgeError
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Pose, PoseStamped
 
+# Permet de retrouver le chemin d'un ros package dans tout l'ordi pouir ensuite appliquer ce chemin pour l'appel de la cascade qui est utilisé pour la vision et la détection
 def get_pkg_path():
     rospack = rospkg.RosPack()
     return rospack.get_path('grp-jade')
 
+# On commence donc par créer la classe Bottle qui permet la détéction des bouteilles et la mise en place des marqueurs sur la map et dans le topic bottle
 
 class Black_Bottle():
 	def __init__(self):
@@ -28,12 +30,11 @@ class Black_Bottle():
 		self.camera_width = 1920
 		self.camera_height = 1080
 
+# cette fonction permet d'utiliser la cascade entrainée sur la video que sort la caméra pour ensuite détécter les bouteilles et trouver leur position
 	def DetectAndDisplay(self, frame):
 		frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-		'''frame_gray = cv.equalizeHist(frame_gray)'''
-	
 		bottles = self.cascade.detectMultiScale(frame_gray, scaleFactor=1.10, minNeighbors=3)
-		cv.imshow('Capture', frame)
+		cv.imshow('Capture - Canette detection', frame)
 		cv.waitKey(10)
 		for (x,y,w,h) in bottles:
 			x = int(x)
@@ -46,15 +47,17 @@ class Black_Bottle():
 			frame = cv.ellipse(frame,(a,b),(w,h),360,0,360,255,4)
 			cv.imshow('Capture', frame)
 			cv.waitKey(10)
-# N'arrivant pas a récuperer la profondeur via la caméra je n'utilise pas cette partie du code je vais simplement marquer la position du robot quand il voit une bouteille
+# N'arrivant pas a récuperer la profondeur via la caméra je n'utilise pas cette partie du code je vais simplement essayer de marquer la position du robot quand il voit une bouteille
 			#estimation = self.Pose(x,y,w,h)
 			#self.Creation_marqueur(estimation)
 			self.publisher.publish(self.position)
-			self.map.publish(self.position)
+
 
 	def Coordonnee_odom(self, data: Odometry):
 		self.position = data.pose
 
+# cette fonbction ne marchant pas car je me permet de la laisser en commentaire, il s'agissait de recuperer la profondeur de la camera 3d pour ensuite calculer la profondeur de la boutielle dans le décor 
+# pour ensuite placer le marqueur correctement
 	'''def Callback_depth(self, data: Image):
 		bridge = CvBridge()
 		self.depth = np.array(bridge.imgmsg_to_cv2(depth_data, "brg8")
@@ -62,7 +65,7 @@ class Black_Bottle():
 			
 		except Exception as err:
 			print("Black_Bottle.Callback_depth: Erreur ", err)'''
-
+#cette fonction permet de convertir l'image de la caméra en opencv image pour que la cascade fonctionne
 	def Callback_image(self, data: Image):
 		bridge = CvBridge()
 		cv_image = bridge.imgmsg_to_cv2(data, "bgr8")
@@ -70,12 +73,12 @@ class Black_Bottle():
 			self.DetectAndDisplay(cv_image)
 		except Exception as err:
 			print("Black_Bottle.Callback_image: Erreur ", err)
-	
+			
+# l'objectif de cette fonction est de trouver la position de la bouteille
 	def Pose(self,x,y,w,h):
-		distance = 4000
 		for row in self.depth_array[y:y+h, x:x+w]:
 			for pixel in row:
-				if pixel < distance and pixel != 0:
+				if pixel < 2000 and pixel != 0:
 					distance = pixel  
 		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.vision_horizontale/2) * math.pi / 180
 		estimation = Pose()
