@@ -73,6 +73,10 @@ _Optional_
 2. There is no need to publish goal positions. The robot is autonomous to achieve its mission.
 3. Any suggestions provided by the group are welcome.
 
+## Vidéo du projet
+
+https://www.youtube.com/watch?v=sx9g504F1po
+
 ## Mots des élèves
 Pour ce challenge 3 nous avons essayer de faire en sorte que le robot fasse des ricochets pour mapper l'espace et puis il y a la partie vision qui récupère en théorie les positions des bouteilles et qui les met sur la map à l'aide de marqueurs.
 Il y a cependant quelques souci sur la publications des marqueurs
