@@ -27,8 +27,8 @@ class Black_Bottle():
 		self.publisher = rospy.Publisher('/bottle',Pose, queue_size=10)
 		self.map = rospy.Publisher('/map',Pose, queue_size=10)
 		self.vision_horizontale = 64
-		self.camera_width = 1920
-		self.camera_height = 1080
+		self.largeur = 1920
+		self.hauteur = 1080
 
 # cette fonction permet d'utiliser la cascade entrainée sur la video que sort la caméra pour ensuite détécter les bouteilles et trouver leur position
 	def DetectAndDisplay(self, frame):
@@ -80,7 +80,7 @@ class Black_Bottle():
 			for pixel in row:
 				if pixel < 2000 and pixel != 0:
 					distance = pixel  
-		angle = ((x+w - self.camera_width/2)/(self.camera_width/2))*(self.vision_horizontale/2) * math.pi / 180
+		angle = ((x+w - self.hauteur/2)*(self.vision_horizontale/2) * math.pi / 180)/(self.largeur/2)
 		estimation = Pose()
 		estimation.position.x = distance / 1000 * math.cos(angle) 
 		estimation.position.y = distance / 1000 * math.sin(angle)  
@@ -102,7 +102,7 @@ class Black_Bottle():
 		marqueur.color.b = 1.0
 		marqueur.color.a = 1.0
 		stamped = PoseStamped.create(marqueur.scale.x,marqueur.scale.y)
-		print(type(stamped))
+		#print(type(stamped))
 		self.publisher.publish(stamped)
 		self.map.publish(stamped)
 
